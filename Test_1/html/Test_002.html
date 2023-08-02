@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!--引入Vue.js-->
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <h1>Hello,{{name1}}</h1>
+    </div>
+
+    <script type="text/javascript">
+      Vue.config.productionTip = false; //设置为 false 以阻止 vue 在启动时生成生产提示。
+
+      let vm = new Vue({
+        el: "#root",
+        data() {
+          return {
+            name1: "单波",
+            age: 18,
+          };
+        },
+      });
+
+      let number = 19;
+      let person = {
+        name: "张三",
+        sex: "男",
+      };
+
+      Object.defineProperty(person, "age", {
+        // value: 19,
+        // enumerable: true, //允许枚举
+        // writable: true, //允许被修改
+        // configurable: true, //允许被删除
+        get() {
+          console.log("当有人获取age值调用！");
+          return number;
+        },
+        set(value) {
+          console.log("当有人设置age值调用");
+          number = value;
+        },
+      });
+      console.log(person);
+      //vm.$mount("#root");
+    </script>
+  </body>
+</html>
