@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vue监视属性原理</title>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/javascript">
+      let data = {
+        name: "彩荣",
+        address: "北京",
+      };
+
+      const obs = new Observer(data);
+
+      let vm = {};
+      vm._data = data = obs;
+
+      function Observer(obj) {
+        //汇总对象中所以的属性形成一个数组
+        const keys = Object.keys(obj);
+
+        //遍历
+        keys.forEach((k) => {
+          Object.defineProperty(this, k, {
+            get() {
+              return obj[k];
+            },
+            set(val) {
+              console.log(`${k}被修改了，我要去解析模板了，生成虚拟dom`);
+              obj[k] = val;
+            },
+          });
+        });
+      }
+    </script>
+  </body>
+</html>
